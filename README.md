@@ -1,12 +1,5 @@
 # azure-terraform-bootstrapper
 
-Aimed at accelerating the implementation of Terraform on Azure, this bootstrapper will;
-- Create a storage account for the remote state management
-- Create a Service Principal for terraform to use for CI / CD
-- Give the Service Principal owner access to the subscription so it can manage resources
-- Create a key vault 
-- Add all the details about the service principal and the storage account as secrets in the key vault.
-
 ## Bootstrap
 
 Copy and paste the below into the Azure Cloud Shell.
@@ -16,6 +9,15 @@ wget https://raw.githubusercontent.com/JimPaine/azure-terraform-bootstrapper/mas
   && terraform init \
   && terraform apply -var="resource_group_name=terraform" -var="resource_group_location=westeurope" -auto-approve
 ```
+
+## What it does
+
+Aimed at accelerating the implementation of Terraform on Azure, this bootstrapper will;
+- Create a storage account for the remote state management
+- Create a Service Principal for terraform to use for CI / CD
+- Give the Service Principal owner access to the subscription so it can manage resources
+- Create a key vault 
+- Add all the details about the service principal and the storage account as secrets in the key vault.
 
 ## Getting Started
 
