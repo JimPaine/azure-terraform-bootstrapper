@@ -101,25 +101,25 @@ resource "azurerm_key_vault" "lab" {
 }
 
 resource "azurerm_key_vault_secret" "client-id" {
-    name = "client-id"
+    name = "TF_VAR_client-id"
     value = "${azuread_application.lab.application_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "client-secret" {
-    name = "client-secret"
+    name = "TF_VAR_client-secret"
     value = "${random_string.lab.result}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "subscription-id" {
-    name = "subscription-id"
+    name = "TF_VAR_subscription-id"
     value = "${data.azurerm_client_config.lab.subscription_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "tenant-id" {
-    name = "tenant-id"
+    name = "TF_VAR_tenant-id"
     value = "${data.azurerm_client_config.lab.tenant_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }

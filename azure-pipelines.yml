@@ -12,13 +12,7 @@ stages:
   - job: TransformConfiguration
     pool:      
       vmImage: 'Ubuntu-16.04'
-    steps:
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace tokens in **/*.tfvars'
-      inputs:
-        rootDirectory: ./env
-        targetFiles: '**/*.tfvars'
-        
+    steps:        
     - script: |
         terraform init \
           -backend-config="resource_group_name=$(resource-group)" \
