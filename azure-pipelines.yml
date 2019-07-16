@@ -13,7 +13,7 @@ stages:
     pool:      
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: cp main.tfvars temp.tfvars && envsubst < temp.tfvars > main.tmp && ls
+    - script: cp main.tfvars temp.tfvars && envsubst < temp.tfvars > main.tmp && echo ${subscription-id}
       displayName: 'Replace tokens in tfvars'
       workingDirectory: ./env
         
