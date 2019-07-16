@@ -19,11 +19,11 @@ stages:
         
     - script: |
         terraform init \
-          -backend-config="resource_group_name=$(resource-group)" \
-          -backend-config="storage_account_name=$(storage-account)" \
-          -backend-config="container_name=$(container-name)" \
-          -backend-config="key=$(tfstate-name)" \
-          -backend-config="access_key=$(access-key)"
+          -backend-config="resource_group_name=$(resourcegroup)" \
+          -backend-config="storage_account_name=$(storageaccount)" \
+          -backend-config="container_name=$(containername)" \
+          -backend-config="key=$(tfstatename)" \
+          -backend-config="access_key=$(accesskey)"
 
       workingDirectory: ./env
       displayName: 'Terraform init'

@@ -101,25 +101,25 @@ resource "azurerm_key_vault" "lab" {
 }
 
 resource "azurerm_key_vault_secret" "client-id" {
-    name = "client-id"
+    name = "clientid"
     value = "${azuread_application.lab.application_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "client-secret" {
-    name = "client-secret"
+    name = "clientsecret"
     value = "${random_string.lab.result}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "subscription-id" {
-    name = "subscription-id"
+    name = "subscriptionid"
     value = "${data.azurerm_client_config.lab.subscription_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "tenant-id" {
-    name = "tenant-id"
+    name = "tenantid"
     value = "${data.azurerm_client_config.lab.tenant_id}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
@@ -140,26 +140,26 @@ resource "azurerm_storage_container" "lab" {
 }
 
 resource "azurerm_key_vault_secret" "storage-account" {
-    name = "storage-account"
+    name = "storageaccount"
     value = "${azurerm_storage_account.lab.name}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "container-name" {
-    name = "container-name"
+    name = "containername"
     value = "${azurerm_storage_container.lab.name}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "access-key" {
-    name = "access-key"
+    name = "accesskey"
     value = "${azurerm_storage_account.lab.primary_access_key}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
 
 
 resource "azurerm_key_vault_secret" "resource-group" {
-    name = "resource-group"
+    name = "resourcegroup"
     value = "${azurerm_resource_group.lab.name}"
     vault_uri = "${azurerm_key_vault.lab.vault_uri}"
 }
