@@ -13,8 +13,8 @@ stages:
     pool:      
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: envsubst < terraform.tfvars > vars.tmp && mv vars.tmp terraform.tfvars && ls
-      displayName: 'Replace tokens in terraform.tfvars'
+    - script: cp main.tfvars temp.tfvars && envsubst < temp.tfvars > main.tmp && ls
+      displayName: 'Replace tokens in tfvars'
       workingDirectory: ./env
         
     - script: |
@@ -28,6 +28,6 @@ stages:
       workingDirectory: ./env
       displayName: 'Terraform init'
 
-    - script: terraform apply -auto-approve
+    - script: terraform apply -auto-approve -var-file=main.tfvars
       workingDirectory: ./env
       displayName: 'Terraform apply'
