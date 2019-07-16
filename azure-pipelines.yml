@@ -16,6 +16,12 @@ stages:
     - script: envsubst < terraform.tfvars > main.tmp && mv main.tmp terraform.tfvars && cat terraform.tfvars && printenv
       displayName: 'Replace tokens in tfvars'
       workingDirectory: ./env
+      env:
+        subscriptionid: $(subscriptionid)
+        clientid: $(clientid)
+        clientsecret: $(clientsecret)
+        tenantid: $(tenantid)
+        location: $(location)
         
     - script: |
         terraform init \
