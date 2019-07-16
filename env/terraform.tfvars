@@ -1,5 +1,5 @@
-subscription-id="${env:subscriptionid}"
+subscription-id="${subscriptionid}"
 client-id="${env:clientid}"
-client-secret="${env:clientsecret}"
-tenant-id="${env:tenantid}"
+client-secret="$(clientsecret)"
+tenant-id="$tenantid"
 location="${env:location}"
