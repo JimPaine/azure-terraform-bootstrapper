@@ -5,7 +5,7 @@
 Copy and paste the below into the Azure Cloud Shell.
 
 ```bash
-wget https://raw.githubusercontent.com/JimPaine/azure-terraform-bootstrapper/master/bootsrapper/main.tf \
+wget https://raw.githubusercontent.com/JimPaine/azure-terraform-bootstrapper/master/bootsrapper/main.tf -O main.tf \
   && terraform init \
   && terraform apply -var="resource_group_name=terraform" -var="resource_group_location=westeurope" -auto-approve
 ```
