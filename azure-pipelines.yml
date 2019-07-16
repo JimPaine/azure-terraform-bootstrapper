@@ -13,7 +13,7 @@ stages:
     pool:      
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: envsubst < ./terraform.tfvars > ./vars.tmp && mv ./vars.tmp ./terraform.tfvars
+    - script: envsubst < terraform.tfvars > vars.tmp && mv vars.tmp terraform.tfvars && ls
       displayName: 'Replace tokens in terraform.tfvars'
       workingDirectory: ./env
         
