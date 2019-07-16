@@ -13,11 +13,9 @@ stages:
     pool:      
       vmImage: 'Ubuntu-16.04'
     steps:
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace tokens in **/*.tfvars'
-      inputs:
-        rootDirectory: ./env
-        targetFiles: '**/*.tfvars'
+    - script: envsubst < terraform.tfvars
+      displayName: 'Replace tokens in terraform.tfvars'
+      workingDirectory: ./env
         
     - script: |
         terraform init \
