@@ -42,11 +42,9 @@ So we can use all the details created by the bootstrapper in a secure way, lets 
 
 - Create a new repo and import this repo `https://github.com/JimPaine/azure-terraform-bootstrapper.git`
 
-### Enable multi stage-pipeline
+### Install marketplace task
 
-- Click on the icon with your initials on the top right corner
-- Click `Preview features`
-- Enable `multi-stage pipeline`
+- [Replace Tokens](https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens)
 
 ### New pipeline
 
