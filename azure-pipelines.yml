@@ -3,7 +3,7 @@ stages:
 - stage: ProvisionEnvironment
   variables:
     - group: 'Terraform'
-    - name: tfstate-name
+    - name: tfstatename
       value: 'bootstrapped.tfstate'
     - name: location
       value: 'westeurope'
