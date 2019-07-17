@@ -13,15 +13,11 @@ stages:
     pool:      
       vmImage: 'Ubuntu-16.04'
     steps:
-    - script: envsubst < terraform.tfvars > main.tmp && mv main.tmp terraform.tfvars
-      displayName: 'Replace tokens in tfvars'
-      workingDirectory: ./env
-      env:
-        subscriptionid: $(subscriptionid)
-        clientid: $(clientid)
-        clientsecret: $(clientsecret)
-        tenantid: $(tenantid)
-        location: $(location)
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace tokens in **/*.tfvars'
+      inputs:
+        rootDirectory: ./env
+        targetFiles: '**/*.tfvars'
         
     - script: |
         terraform init \
