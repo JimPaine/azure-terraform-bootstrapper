@@ -59,7 +59,7 @@ resource "random_string" "lab" {
 resource "azuread_service_principal_password" "lab" {
   service_principal_id = azuread_service_principal.lab.id
   value                = random_string.lab.result
-  end_date             = "2020-01-01T01:02:03Z"
+  end_date             = "2021-01-01T01:02:03Z"
 }
 
 data "azurerm_client_config" "lab" {}
@@ -81,9 +81,7 @@ resource "azurerm_key_vault" "lab" {
   resource_group_name = azurerm_resource_group.lab.name
   tenant_id           = data.azurerm_client_config.lab.tenant_id
 
-  sku {
-    name = "standard"
-  }
+  sku_name = "standard"
 
   access_policy {
     tenant_id = data.azurerm_client_config.lab.tenant_id
@@ -103,25 +101,25 @@ resource "azurerm_key_vault" "lab" {
 resource "azurerm_key_vault_secret" "client-id" {
     name = "clientid"
     value = azuread_application.lab.application_id
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "client-secret" {
     name = "clientsecret"
     value = random_string.lab.result
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "subscription-id" {
     name = "subscriptionid"
     value = data.azurerm_client_config.lab.subscription_id
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "tenant-id" {
     name = "tenantid"
     value = data.azurerm_client_config.lab.tenant_id
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_storage_account" "lab" {
@@ -134,7 +132,6 @@ resource "azurerm_storage_account" "lab" {
 
 resource "azurerm_storage_container" "lab" {
   name                  = "state"
-  resource_group_name   = azurerm_resource_group.lab.name
   storage_account_name  = azurerm_storage_account.lab.name
   container_access_type = "private"
 }
@@ -142,24 +139,24 @@ resource "azurerm_storage_container" "lab" {
 resource "azurerm_key_vault_secret" "storage-account" {
     name = "storageaccount"
     value = azurerm_storage_account.lab.name
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "container-name" {
     name = "containername"
     value = azurerm_storage_container.lab.name
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "access-key" {
     name = "accesskey"
     value = azurerm_storage_account.lab.primary_access_key
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
 
 
 resource "azurerm_key_vault_secret" "resource-group" {
     name = "resourcegroup"
     value = azurerm_resource_group.lab.name
-    vault_uri = azurerm_key_vault.lab.vault_uri
+    key_vault_id = azurerm_key_vault.lab.id
 }
