@@ -59,7 +59,7 @@ resource "random_string" "lab" {
 resource "azuread_service_principal_password" "lab" {
   service_principal_id = azuread_service_principal.lab.id
   value                = random_string.lab.result
-  end_date             = "2021-01-01T01:02:03Z"
+  end_date             = "2021-12-01T01:02:03Z"
 }
 
 data "azurerm_client_config" "lab" {}
