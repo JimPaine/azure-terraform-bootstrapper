@@ -1,7 +1,3 @@
-provider "azuread" {
-  version = "~> 0.7"
-}
-
 provider "azurerm" {
   version = "~> 1.41"
 }
@@ -16,18 +12,18 @@ provider "external" {
 
 
 variable "resource_group_name" {
-  
+
 }
 
 variable "resource_group_location" {
-  
+
 }
 
 
 
 resource "azurerm_resource_group" "lab" {
   name     = var.resource_group_name
-  location = var.resource_group_location    
+  location = var.resource_group_location
 }
 
 resource "random_id" "lab" {
@@ -38,41 +34,11 @@ resource "random_id" "lab" {
   byte_length = 2
 }
 
-resource "azuread_application" "lab" {
-  name                       = "terraclient${random_id.lab.dec}"
-  homepage                   = "https://homepage"
-  identifier_uris            = ["https://uri${random_id.lab.dec}"]
-  reply_urls                 = ["https://uri${random_id.lab.dec}"]
-  available_to_other_tenants = false
-  oauth2_allow_implicit_flow = true
-}
-
-resource "azuread_service_principal" "lab" {
-  application_id = azuread_application.lab.application_id
-}
-
-resource "random_string" "lab" {
-  length  = "32"
-  special = true
-}
-
-resource "azuread_service_principal_password" "lab" {
-  service_principal_id = azuread_service_principal.lab.id
-  value                = random_string.lab.result
-  end_date             = "2021-01-01T01:02:03Z"
-}
-
 data "azurerm_client_config" "lab" {}
 
 # Work around until the object id is output for the user
 data "external" "lab" {
   program = ["az","ad","signed-in-user","show", "-o=json","--query","{displayName: displayName,objectId: objectId,objectType: objectType}"]
-}
-
-resource "azurerm_role_assignment" "lab" {
-  scope                = "/subscriptions/${data.azurerm_client_config.lab.subscription_id}"
-  role_definition_name = "Owner"
-  principal_id         = azuread_service_principal.lab.id
 }
 
 resource "azurerm_key_vault" "lab" {
@@ -96,12 +62,6 @@ resource "azurerm_key_vault" "lab" {
       "delete"
     ]
   }
-}
-
-resource "azurerm_key_vault_secret" "client-id" {
-    name = "clientid"
-    value = azuread_application.lab.application_id
-    key_vault_id = azurerm_key_vault.lab.id
 }
 
 resource "azurerm_key_vault_secret" "client-secret" {
